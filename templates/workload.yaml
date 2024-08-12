@@ -3,7 +3,7 @@ kind: Workload
 metadata:
   name: kblocks-ui
 image: wingcloudbot/kblocks-ui:sha-{{ .Values.revision }}
-port: 5175
+port: 5173
 route: /kblocksui
 replicas: 2
 env:
