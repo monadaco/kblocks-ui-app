@@ -2,7 +2,7 @@ apiVersion: acme.com/v1
 kind: Workload
 metadata:
   name: kblocks-ui
-image: wingcloudbot/kblocks-ui:sha-{{ .Values.revision }}
+image: wingcloudbot/kblocks-ui-app:sha-{{ .Values.revision }}
 port: 5173
 route: /kblocks
 replicas: 2
