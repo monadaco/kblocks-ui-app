@@ -8,4 +8,3 @@ route: /kblocks
 replicas: 2
 env:
   VITE_SERVER_URL: http://monadahq.com/kblocks/api
-command: ["npm", "run", "dev"]
