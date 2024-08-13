@@ -30,4 +30,4 @@ EXPOSE 5175
 RUN npx vite build
 
 # Start your React app
-CMD ["npx", "vite", "preview"]
+CMD ["npx", "vite", "preview", "--port", "5175"]
