@@ -31,6 +31,9 @@ export const Component = () => {
   }, []);
 
   useEffect(() => {
+    if (!crds) {
+      return;
+    }
     const crdName = location.pathname.substring(
       location.pathname.lastIndexOf("/") + 1,
     );
