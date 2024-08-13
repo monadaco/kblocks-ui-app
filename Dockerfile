@@ -8,14 +8,20 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install -g pnpm
-RUN pnpm install
+RUN npm install
 
 # Copy the rest of your application code to the working directory
-COPY . .
+ADD src ./src
+ADD public ./public
+ADD vite.config.ts ./
+ADD index.html ./
+ADD tsconfig.*.json ./
+ADD postcss.config.js ./
+ADD tailwind.config.js ./
+ADD .env ./
 
 # Expose a port to communicate with the React app
 EXPOSE 5175
 
 # Start your React app
-CMD ["pnpm", "run", "dev"]
+CMD ["npm", "run", "dev"]

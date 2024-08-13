@@ -26,18 +26,17 @@ export const Component = () => {
 
   useEffect(() => {
     getCRDs().then((data) => {
-      setCRDs(data);
+      setCRDs(Array.isArray(data) ? data : []);
     });
   }, []);
 
   useEffect(() => {
-    if (!crds) {
-      return;
-    }
+    if (!crds) return;
     const crdName = location.pathname.substring(
       location.pathname.lastIndexOf("/") + 1,
     );
-    const current = crds.find((crd) => {
+    if (!crdName) return;
+    const current = crds!.find((crd) => {
       return crd.kind.toLowerCase() === crdName.toLowerCase();
     });
     if (!current) return;
@@ -56,7 +55,7 @@ export const Component = () => {
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             <Logo
               name={"Monada"}
-              iconPath={`${import.meta.env.BASE_URL}monadahq.png`}
+              iconPath={`${import.meta.env.BASE_URL}/monadahq.png`}
             />
             <div className="mt-8 flex flex-col gap-2">
               {crds && (

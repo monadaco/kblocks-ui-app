@@ -2,7 +2,7 @@ import "./App.css";
 import { useCallback, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router.ts";
-import { Header } from "./header.tsx";
+import { Header } from "./components/header.tsx";
 
 function App() {
   const [routesReady, setRoutesReady] = useState(false);
