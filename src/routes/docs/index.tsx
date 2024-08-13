@@ -84,7 +84,7 @@ export const Component = () => {
         <div className="flex flex-1 overflow-hidden bg-white dark:bg-neutral-900">
           {/* Parent container wrapping both markdown and metadata */}
           <div className="flex flex-row flex-1 h-full overflow-auto">
-            <div className="p-2 md:p-10 text-left rounded-tl-2xl dark:border-neutral-700 flex flex-col gap-2 flex-1 w-full h-full">
+            <div className="p-2 md:p-8 text-left rounded-tl-2xl dark:border-neutral-700 flex flex-col gap-2 flex-1 w-full h-full">
               {currentCRD && (
                 <Markdown
                   rehypePlugins={[rehypeRaw]}
@@ -109,7 +109,7 @@ export const Component = () => {
                           >
                             <button
                               className={
-                                "absolute top-0 right-0 bg-transparent p-1 rounded-md border-none focus:outline-none"
+                                "absolute top-0 right-0 bg-transparent p-2 focus:outline-none"
                               }
                             >
                               {copied ? (
