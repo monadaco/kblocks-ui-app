@@ -4,7 +4,7 @@ metadata:
   name: app
 
 image: wingcloudbot/kblocks-ui-app:sha-{{ .Values.revision }}
-port: 5173
+port: 5175
 route: /kblocks
 replicas: 2
 env:
