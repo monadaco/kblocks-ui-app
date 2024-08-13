@@ -14,12 +14,10 @@ function App() {
   }, [routesReady]);
 
   return (
-    <div className={"flex flex-col h-full w-full"}>
+    <div>
       <Header />
       {!routesReady && "Loading..."}
-      <div className={"flex w-full h-[calc(100%-74px)] mb-2"}>
-        <RouterProvider router={router(onRouterReady)} />
-      </div>
+      <RouterProvider router={router(onRouterReady)} />
     </div>
   );
 }

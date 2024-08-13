@@ -1,28 +1,12 @@
 export const Header = () => {
   return (
-    <div className={`hidden lg:block w-full`}>
+    <div >
       <div className="flex justify-between h-16">
         <div className="flex items-center 2">
-          <img
-            src={`${import.meta.env.BASE_URL}/wing-light.svg`}
-            alt="Kblocks Hub"
-            className="h-8 w-auto"
-          />
-          <span className="text-xl font-semibold">Kblocks Hub</span>
+          <span className="pl-2 mt-1 text-xl font-semibold">Platform Hub</span>
         </div>
+        
         <div className="flex flex-1 items-center justify-end gap-2 sm:gap-2">
-          <a
-            className="bg-white h-10 py-2 px-3 flex items-center justify-center outline-none"
-            href={"https://github.com/winglang/kblocks"}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}/github-light.svg`}
-              alt="GitHub"
-              className="h-8 w-auto"
-            />
-          </a>
           <button className="sm:flex relative hidden justify-start items-center text-sm text-muted-foreground dark:border-white/[0.2] py-2 w-fit border border-transparent shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] px-4 rounded-xl bg-white dark:bg-brand">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -46,6 +30,7 @@ export const Header = () => {
               <span className="text-xs">⌘</span>K
             </kbd>
           </button>
+          
         </div>
       </div>
     </div>
