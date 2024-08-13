@@ -3,7 +3,6 @@ import { Sidebar, SidebarBody, SidebarLink } from "../../components/sidebar";
 import { cn } from "../../lib/utils";
 import { useGetCRDs } from "../../services/use-get-crds.ts";
 import { useLocation } from "react-router-dom";
-import { Logo } from "../../components/logo.tsx";
 import { CRDData } from "../../types/crd.ts";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -53,16 +52,7 @@ export const Component = () => {
       <Sidebar animate={false}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-            <Logo
-              name={"Monada"}
-              iconPath={`${import.meta.env.BASE_URL}/monadahq.png`}
-            />
-            <div className="mt-8 flex flex-col gap-2">
-              {crds && (
-                <div className={"text-sm font-semibold text-left"}>
-                  Building Blocks
-                </div>
-              )}
+            <div className="flex flex-col gap-2">
               {crds &&
                 crds.map((crd, idx) => {
                   const crdName = crd.kind;
@@ -70,6 +60,7 @@ export const Component = () => {
                   const iconColor = getResourceIconColors({
                     color: crd?.color,
                   });
+
                   return (
                     <SidebarLink
                       key={idx}
@@ -93,7 +84,7 @@ export const Component = () => {
         <div className="flex flex-1 overflow-hidden bg-white dark:bg-neutral-900">
           {/* Parent container wrapping both markdown and metadata */}
           <div className="flex flex-row flex-1 h-full overflow-auto">
-            <div className="p-2 md:p-10 text-left rounded-tl-2xl dark:border-neutral-700 flex flex-col gap-2 flex-1 w-full h-full">
+            <div className="p-2 md:p-8 text-left rounded-tl-2xl dark:border-neutral-700 flex flex-col gap-2 flex-1 w-full h-full">
               {currentCRD && (
                 <Markdown
                   rehypePlugins={[rehypeRaw]}
@@ -118,7 +109,7 @@ export const Component = () => {
                           >
                             <button
                               className={
-                                "absolute top-0 right-0 bg-transparent p-1 rounded-md border-none focus:outline-none"
+                                "absolute top-0 right-0 bg-transparent p-2 focus:outline-none"
                               }
                             >
                               {copied ? (
@@ -152,7 +143,7 @@ export const Component = () => {
             </div>
             {currentCRD && (
               <div className="p-2 md:p-10 text-left dark:border-neutral-700 w-64 flex-shrink-0 p-4 bg-white dark:bg-neutral-900">
-                <h1 className="text-2xl font-bold mb-6 mt-4 text-blue-600">
+                <h1 className="text-2xl font-bold mb-6 mt-4">
                   CRD Metadata
                 </h1>
                 <div>
