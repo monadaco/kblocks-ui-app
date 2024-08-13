@@ -27,5 +27,7 @@ ADD .env ./
 # Expose a port to communicate with the React app
 EXPOSE 5175
 
+RUN npx vite build
+
 # Start your React app
-CMD ["npm", "run", "dev"]
+CMD ["npx", "vite", "preview"]
