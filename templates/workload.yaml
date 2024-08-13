@@ -3,7 +3,7 @@ kind: Workload
 metadata:
   name: kblocks-test-app
 image: wingcloudbot/kblocks-test-app:sha-{{ .Values.revision }}
-route: /kblocks
+route: /kblockstest
 replicas: 1
 port: 5175
 env:
