@@ -1,4 +1,6 @@
 import { defineConfig } from "vite";
+import { dependencies } from './package.json';
+
 import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
@@ -8,5 +10,8 @@ export default defineConfig({
   server: {
     port: 5175,
     host: true,
+  },
+  optimizeDeps: {
+    exclude: Object.keys(dependencies || {}),
   },
 });
