@@ -26,7 +26,7 @@ export const Component = () => {
 
   useEffect(() => {
     getCRDs().then((data) => {
-      setCRDs(data);
+      setCRDs(Array.isArray(data) ? data : []);
     });
   }, []);
 
