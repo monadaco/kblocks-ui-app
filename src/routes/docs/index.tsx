@@ -75,7 +75,7 @@ export const Component = () => {
                       key={idx}
                       link={{
                         label: crdName,
-                        navigate: `/docs/${crdName}`,
+                        navigate: `${import.meta.env.BASE_URL}/docs/${crdName}`,
                         icon: (
                           <Icon
                             className={`${iconColor} h-5 w-5 flex-shrink-0`}
