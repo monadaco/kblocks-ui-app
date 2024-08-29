@@ -24,35 +24,14 @@ export const Component = () => {
   const [selectedApp, setSelectedApp] = useState<ArgoApplication | null | undefined>(null);
 
   useEffect(() => {
-    getCRDs().then((data) => {
-      if (!Array.isArray(data)) {
-        setCRDs({});
-        return;
-      }
-
-      const map: Record<string, CRDData> = {};
-      for (const crd of data) {
-        map[crd.kind.toLowerCase()] = crd;
-      }
-
-      setCRDs(map);
+    getCRDs().then((resources) => {
+      setCRDs(resources);
     });
   }, []);
 
   useEffect(() => {
-    getArgoApps().then((data) => {
-      const apps: ArgoApplication[] = data?.body?.items;
-      if (!Array.isArray(apps)) {
-        setApps({});
-        return;
-      }
-
-      const map: Record<string, ArgoApplication> = {};
-      for (const app of apps) {
-        map[app.metadata.name] = app;
-      }
-
-      setApps(map);
+    getArgoApps().then((apps) => {
+      setApps(apps);
     });
   }, []);
 
