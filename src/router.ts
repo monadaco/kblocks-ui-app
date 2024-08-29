@@ -10,15 +10,15 @@ export const router = (onReady: () => void) => {
   return createBrowserRouter([
     {
       path: "",
-      lazy: () => lazyLoading(import("./routes/docs/index.js")),
+      lazy: () => lazyLoading(import("./page.js")),
     },
     {
       path: "/",
-      lazy: () => lazyLoading(import("./routes/docs/index.js")),
+      lazy: () => lazyLoading(import("./page.js")),
     },
     {
       path: "*",
-      lazy: () => lazyLoading(import("./routes/docs/index.js")),
+      lazy: () => lazyLoading(import("./page.js")),
     },
   ]);
 };

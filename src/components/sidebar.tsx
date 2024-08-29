@@ -85,7 +85,7 @@ export const DesktopSidebar = ({
 }: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar();
   return (
-    <>
+    <aside>
       <motion.div
         className={cn(
           "h-full px-4 py-4 hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] flex-shrink-0",
@@ -100,7 +100,7 @@ export const DesktopSidebar = ({
       >
         {children}
       </motion.div>
-    </>
+    </aside>
   );
 };
 
@@ -112,7 +112,7 @@ export const MobileSidebar = ({
   const { open, setOpen } = useSidebar();
   return (
     <>
-      <div
+      <aside
         className={cn(
           "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full",
         )}
@@ -149,7 +149,7 @@ export const MobileSidebar = ({
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </aside>
     </>
   );
 };
@@ -161,7 +161,7 @@ export const SidebarLink = ({
 }: {
   link: Links;
   className?: string;
-  props?: any;
+  props?: React.ComponentProps<"a">; 
 }) => {
   const { open, animate } = useSidebar();
   const navigate = useNavigate();
@@ -169,7 +169,7 @@ export const SidebarLink = ({
     <a
       onClick={() => navigate(link.navigate)}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2 hover:cursor-pointer",
+        "flex items-center justify-start gap-2 group/sidebar py-2 hover:cursor-pointer",
         className,
       )}
       {...props}
