@@ -8,15 +8,15 @@ import {
   Rocket,
 } from "lucide-react"
 import Pipeline from './pipeline'
+import { ArgoApplication } from "./types/argo"
 
-export function AppView() {
+export function AppView(props: { app: ArgoApplication }) {
   return (
     <div className="flex-1 p-6 overflow-auto bg-white dark:bg-neutral-900">
-
       {/* Pipeline */}
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Deployment Pipeline</CardTitle>
+          <CardTitle>{props.app.metadata.name}</CardTitle>
         </CardHeader>
         <CardContent>
           <Pipeline />

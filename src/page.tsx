@@ -11,27 +11,48 @@ import {
 } from "./components/hero-icon";
 import { BlockView } from "./block-view";
 import { useGetApps } from "./services/use-get-apps";
+import { ArgoApplication } from "./types/argo";
 
 export const Component = () => {
   const location = useLocation();
   const { getCRDs } = useGetCRDs();
   const { getArgoApps } = useGetApps();
 
-  const [crds, setCRDs] = useState<CRDData[]>([]);
-  const [apps, setApps] = useState<string[]>([]);
+  const [crds, setCRDs] = useState<Record<string, CRDData>>({});
+  const [apps, setApps] = useState<Record<string, ArgoApplication>>({});
   const [selectedBlock, setSelectedBlock] = useState<CRDData | null | undefined>(null);
-  const [selectedApp, setSelectedApp] = useState<string | null | undefined>(null);
+  const [selectedApp, setSelectedApp] = useState<ArgoApplication | null | undefined>(null);
 
   useEffect(() => {
     getCRDs().then((data) => {
-      setCRDs(Array.isArray(data) ? data : []);
+      if (!Array.isArray(data)) {
+        setCRDs({});
+        return;
+      }
+
+      const map: Record<string, CRDData> = {};
+      for (const crd of data) {
+        map[crd.kind.toLowerCase()] = crd;
+      }
+
+      setCRDs(map);
     });
   }, []);
 
   useEffect(() => {
     getArgoApps().then((data) => {
-      console.log(data);
-      setApps(Array.isArray(data) ? data : []);
+      const apps: ArgoApplication[] = data?.body?.items;
+      if (!Array.isArray(apps)) {
+        setApps({});
+        return;
+      }
+
+      const map: Record<string, ArgoApplication> = {};
+      for (const app of apps) {
+        map[app.metadata.name] = app;
+      }
+
+      setApps(map);
     });
   }, []);
 
@@ -42,29 +63,21 @@ export const Component = () => {
 
     switch (type) {
       case "blocks": {
-        const current = crds.find((crd) => {
-          return crd.kind.toLowerCase() === id.toLowerCase();
-        });
-
+        const current = crds[id.toLowerCase()];
         setSelectedBlock(current);
         setSelectedApp(null);
         break;
       }
 
       case "apps": {
-        setSelectedApp(id);
+        const current = apps[id];
+        setSelectedApp(current);
         setSelectedBlock(null);
         break;
       }
     }
 
-  }, [location, crds]);
-
-  const applications = [
-    { name: "App1", path: "/apps/app1" },
-    { name: "App2", path: "/apps/app2" },
-    { name: "App3", path: "/apps/app3" },
-  ];
+  }, [location, crds, apps]);
 
   return (
     <div
@@ -80,14 +93,14 @@ export const Component = () => {
             {/* Applications Section */}
             <div className="flex flex-col font-bold">
               <h3 className="text-left py-2"> Services</h3>
-              {applications.map((app, idx) => {
+              {Object.values(apps).map((app, idx) => {
                 const Icon = getIconComponent({ icon: "window" });
                 const iconColor = getResourceIconColors();
                 return <SidebarLink
                   key={idx}
                   link={{
-                    label: app.name,
-                    navigate: `${import.meta.env.BASE_URL}${app.path}`,
+                    label: app.metadata.name,
+                    navigate: `${import.meta.env.BASE_URL}/apps/${app.metadata.name}`,
                     icon: <Icon className={`${iconColor} h-5 w-5 flex-shrink-0`} />
                   }}
                 />
@@ -97,33 +110,32 @@ export const Component = () => {
             {/* Components Section */}
             <div className="flex flex-col mt-2 font-bold">
               <h3 className="text-left py-2">Blocks</h3>
-              {crds &&
-                crds.map((crd, idx) => {
-                  const crdName = crd.kind;
-                  const Icon = getIconComponent({ icon: crd?.icon });
-                  const iconColor = getResourceIconColors({
-                    color: crd?.color,
-                  });
+              {Object.values(crds).map((crd, idx) => {
+                const crdName = crd.kind;
+                const Icon = getIconComponent({ icon: crd?.icon });
+                const iconColor = getResourceIconColors({
+                  color: crd?.color,
+                });
 
-                  return <SidebarLink
-                    key={idx}
-                    link={{
-                      label: crdName,
-                      navigate: `${import.meta.env.BASE_URL}/blocks/${crdName}`,
-                      icon: (
-                        <Icon
-                          className={`${iconColor} h-5 w-5 flex-shrink-0`}
-                        />
-                      ),
-                    }} />;
-                })}
+                return <SidebarLink
+                  key={idx}
+                  link={{
+                    label: crdName,
+                    navigate: `${import.meta.env.BASE_URL}/blocks/${crdName}`,
+                    icon: (
+                      <Icon
+                        className={`${iconColor} h-5 w-5 flex-shrink-0`}
+                      />
+                    ),
+                  }} />;
+              })}
             </div>
           </div>
         </SidebarBody>
       </Sidebar>
 
       {selectedBlock && <BlockView {...selectedBlock} />}
-      {selectedApp && <AppView />}
+      {selectedApp && <AppView app={selectedApp} />}
 
     </div>
   );
