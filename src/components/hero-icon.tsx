@@ -19,8 +19,8 @@ export const getIconComponent = ({
   icon?: string;
 }) => {
   const iconSet = solid ? SolidHeroIcons : OutlineHeroIcons;
-  // @ts-ignore
-  let iconComponent = iconSet[getHeroIconName(icon)];
+  // @ts-expect-error -- any
+  const iconComponent = iconSet[getHeroIconName(icon)];
   if (iconComponent) {
     return iconComponent;
   } else {
@@ -97,13 +97,13 @@ export const getResourceIconColors = (options: {
   darkenOnGroupHover?: boolean;
   forceDarken?: boolean;
   color?: Colors | string;
-}) => {
-  let color: Colors =
+} = {}) => {
+  const color: Colors =
     options.color && Object.keys(colors).includes(options.color)
       ? (options.color as Colors)
       : "slate";
 
-  let chosenColor = [
+  const chosenColor = [
     colors[color].default,
     options.darkenOnGroupHover && colors[color].groupHover,
     options.forceDarken && colors[color].forceDarken,
